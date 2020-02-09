@@ -21,11 +21,8 @@ class Tree:
     def appendChild(self, values):
         self.values.append(values)
     def appendChildren(self, *args):
-        if self.base == '':
-            raise TreeError('Cannot have a child without a base')
-        else:
-            for arg in args:
-                self.values.append(arg)
+        for arg in args:
+            self.values.append(arg)
     def deleteChild(self, location):
         try:
             x = self.values[location]
