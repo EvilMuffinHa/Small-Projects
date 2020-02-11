@@ -4,6 +4,9 @@ class Error(Exception):
 class TreeError(Error):
     pass
 
+class BinTreeError(TreeError):
+    pass
+
 
 class Tree:
     def __init__(self):
@@ -30,5 +33,14 @@ class Tree:
             return x
         except:
             raise TreeError('Child does not exist')
+
+class BinTree(Tree):
+    def appendChild(self, values):
+        if len(self.values) < 2:
+            self.values.append(values)
+        else:
+            raise BinTreeError('Binary Trees can only have two children. ')
+    def appendChildren(self, values):
+        raise BinTreeError('Binary Trees cannot append multiple values. ')
 
 
