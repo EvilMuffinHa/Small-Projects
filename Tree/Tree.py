@@ -34,6 +34,7 @@ class Tree:
         except:
             raise TreeError('Child does not exist')
 
+#Binary trees
 class BinTree(Tree):
     def appendChild(self, values):
         if len(self.values) < 2:
