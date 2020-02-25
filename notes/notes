@@ -9,7 +9,7 @@ while getopts ":hcr:t:s:" opt; do
 		h )
 			printf "%s\n" "Usage: notes [-hc] [-t] [-r] [-s] text"
 			printf "%s\n" "h: Help"
-			printf "%s\b" "c: Clear notes"
+			printf "%s\n" "c: Clear notes"
 			printf "%s\n" "t: Timer [min]"
 			printf "%s\n" "r: Retrieve [number]"
 			printf "%s\n" "s: Timer [sec]"
