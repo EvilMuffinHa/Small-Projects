@@ -1,11 +1,10 @@
 #!/bin/bash
-unset name
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 NAME="/notes.txt"
 FPATH="$DIR$NAME"
 
-while getopts ":hcr:t:" opt; do
+while getopts ":hcr:t:s:" opt; do
 	case ${opt} in
 		h )
 			printf "%s\n" "Usage: notes [-h] [-c] [-t] [-r] text"
@@ -13,6 +12,7 @@ while getopts ":hcr:t:" opt; do
 			printf "%s\b" "c: Clear notes"
 			printf "%s\n" "t: Timer [min]"
 			printf "%s\n" "r: Retrieve [number]"
+			printf "%s\n" "s: Timer [sec]"
 			exit 1
 			;;
 		t )
@@ -20,7 +20,14 @@ while getopts ":hcr:t:" opt; do
 			dat="\n`date`: "
 			nl="\n"
 			not="$3"
-			sleep $(($OPTARG*60)) && echo -e "$dat${not:0:$((${#not}+1))}" &
+			sleep $(($OPTARG*60)) && echo -ne "\007$dat${not:0:$((${#not}+1))}$nl" &
+			;;
+		s )
+			target=$OPTARG
+			dat="\n`date`: "
+			nl="\n"
+			not="$3"
+			sleep $OPTARG && echo -ne "\007$dat${not:0:$((${#not}+1))}$nl" &
 			;;
 		r )
 			target=$OPTARG
