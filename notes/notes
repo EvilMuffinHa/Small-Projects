@@ -1,6 +1,10 @@
 #!/bin/bash
 unset name
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+NAME="/notes.txt"
+FPATH="$DIR$NAME"
+
 while getopts ":hcr:t:" opt; do
 	case ${opt} in
 		h )
@@ -20,11 +24,11 @@ while getopts ":hcr:t:" opt; do
 			;;
 		r )
 			target=$OPTARG
-			tail -n $OPTARG notes.txt
+			tail -n $OPTARG $FPATH
 			exit 1
 			;;
 		c )
-			echo "" > notes.txt
+			echo "" > $FPATH
 			printf "%s\n" "Notes cleared!"
 			exit 1
 			;;
@@ -46,5 +50,5 @@ shift $((OPTIND -1))
 dat="`date`: "
 nl="\n"
 not="$1$nl"
-printf "$dat${not:0:$((${#not}))}" >> notes.txt
+printf "$dat${not:0:$((${#not}))}" >> $FPATH
 printf "%s\n" "Recorded!"
