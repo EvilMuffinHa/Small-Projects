@@ -1,0 +1,50 @@
+#!/bin/bash
+unset name
+
+while getopts ":hcr:t:" opt; do
+	case ${opt} in
+		h )
+			printf "%s\n" "Usage: notes [-h] [-c] [-t] [-r] text"
+			printf "%s\n" "h: Help"
+			printf "%s\b" "c: Clear notes"
+			printf "%s\n" "t: Timer [time]"
+			printf "%s\n" "r: Retrieve [number]"
+			exit 1
+			;;
+		t )
+			target=$OPTARG
+			dat="\n`date`: "
+			nl="\n"
+			not="$3"
+			sleep $OPTARG && echo -e "$dat${not:0:$((${#not}+1))}" &
+			;;
+		r )
+			target=$OPTARG
+			tail -n $OPTARG notes.txt
+			exit 1
+			;;
+		c )
+			echo "" > notes.txt
+			printf "%s\n" "Notes cleared!"
+			exit 1
+			;;
+		\? )
+			echo "Invalid option: $OPTARG" 1>&2
+			exit 1
+			;;
+		: )
+      			echo "Invalid option: $OPTARG requires an argument" 1>&2
+      			exit 1
+			;;
+	esac
+done
+if [ "$#" -le 0 ]; then
+	printf "%s\n" 'Usage: notes [-h] [-t] "text"'
+	exit 1
+fi
+shift $((OPTIND -1))
+dat="`date`: "
+nl="\n"
+not="$1$nl"
+printf "$dat${not:0:$((${#not}))}" >> notes.txt
+printf "%s\n" "Recorded!"
