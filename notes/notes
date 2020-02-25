@@ -7,7 +7,7 @@ FPATH="$DIR$NAME"
 while getopts ":hcr:t:s:" opt; do
 	case ${opt} in
 		h )
-			printf "%s\n" "Usage: notes [-h] [-c] [-t] [-r] text"
+			printf "%s\n" "Usage: notes [-hc] [-t] [-r] [-s] text"
 			printf "%s\n" "h: Help"
 			printf "%s\b" "c: Clear notes"
 			printf "%s\n" "t: Timer [min]"
@@ -50,7 +50,7 @@ while getopts ":hcr:t:s:" opt; do
 	esac
 done
 if [ "$#" -le 0 ]; then
-	printf "%s\n" 'Usage: notes [-h] [-t] "text"'
+	printf "%s\n" 'Usage: notes [-hc] [-t] [-r] [-s] "text"'
 	exit 1
 fi
 shift $((OPTIND -1))
